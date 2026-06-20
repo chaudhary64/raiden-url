@@ -1,0 +1,51 @@
+import React from 'react';
+
+export const Table = ({ children, className = "" }) => {
+  return (
+    <div className={`w-full overflow-x-auto border border-gray-200 bg-white ${className}`}>
+      <table className="w-full text-left border-collapse">
+        {children}
+      </table>
+    </div>
+  );
+};
+
+export const TableHeader = ({ children }) => {
+  return (
+    <thead className="bg-gray-50 border-b border-gray-200 text-sm uppercase tracking-wider font-semibold text-gray-700">
+      <tr>{children}</tr>
+    </thead>
+  );
+};
+
+export const TableHead = ({ children, className = "" }) => {
+  return (
+    <th className={`px-6 py-4 whitespace-nowrap ${className}`}>
+      {children}
+    </th>
+  );
+};
+
+export const TableBody = ({ children }) => {
+  return (
+    <tbody className="divide-y divide-gray-200 bg-white text-sm text-gray-800">
+      {children}
+    </tbody>
+  );
+};
+
+export const TableRow = ({ children, className = "" }) => {
+  return (
+    <tr className={`hover:bg-gray-50 transition-colors ${className}`}>
+      {children}
+    </tr>
+  );
+};
+
+export const TableCell = ({ children, className = "" }) => {
+  return (
+    <td className={`px-6 py-4 whitespace-nowrap ${className}`}>
+      {children}
+    </td>
+  );
+};
