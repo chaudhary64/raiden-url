@@ -1,13 +1,11 @@
-import db from "../../db/index.js";
-import { usersTable } from "../../models/user.schema.js";
-import { eq } from "drizzle-orm";
 import { updateUser } from "../../repositories/user.repository.js";
 
 export async function updateInfoController(req, res) {
   try {
-    const { id, name } = req.query;
+    const userId = req.user.id;
+    const { name } = req.body;
 
-    const updatedUser = await updateUser(id, { name });
+    const updatedUser = await updateUser(userId, { name });
 
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });

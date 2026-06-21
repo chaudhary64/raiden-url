@@ -3,9 +3,10 @@ import { nanoid } from "nanoid";
 
 export default async function postLinkController(req, res) {
   try {
-    const { id, originalUrl } = req.body;
+    const userId = req.user.id;
+    const { originalUrl } = req.body;
     const short_code = nanoid(process.env.NANOID_SIZE);
-    const newLink = await createLink(id, originalUrl, short_code);
+    const newLink = await createLink(userId, originalUrl, short_code);
     res.json({ message: "Link created successfully", link: newLink });
   } catch (error) {
     console.error("Error creating link:", error);

@@ -7,6 +7,16 @@ async function getAllLinksByUserId(userId) {
     return links;
 }
 
+async function getLinkById(linkId) {
+    const [link] = await db.select().from(linksTable).where(eq(linksTable.id, linkId));
+    return link;
+}
+
+async function getLinkByShortCode(shortCode) {
+    const [link] = await db.select().from(linksTable).where(eq(linksTable.short_code, shortCode));
+    return link;
+}
+
 async function createLink(userId, originalUrl, shortCode) {
     const newLink = await db.insert(linksTable).values({
         user_id: userId,
@@ -31,4 +41,4 @@ async function deleteLink(linkId) {
     return deletedLink[0];
 }
 
-export { getAllLinksByUserId, createLink, updateLink, deleteLink };
+export { getAllLinksByUserId, getLinkById, getLinkByShortCode, createLink, updateLink, deleteLink };

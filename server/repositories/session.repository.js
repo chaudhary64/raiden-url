@@ -7,6 +7,7 @@ async function createSession(sessionData) {
     .insert(sessionsTable)
     .values(sessionData)
     .returning();
+  return session;
 }
 
 async function getSessionByRefreshToken(refreshToken) {
@@ -20,7 +21,7 @@ async function getSessionByRefreshToken(refreshToken) {
 async function deleteSessionById(sessionId) {
   const [session] = await db
     .delete(sessionsTable)
-    .where(eq(sessionsTable.id, sessionId))
+    .where(eq(sessionsTable.session_id, sessionId))
     .returning();
   return session;
 }

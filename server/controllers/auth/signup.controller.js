@@ -1,8 +1,8 @@
 import { createUser } from "../../repositories/user.repository.js";
 import { hashPassword } from "../../utils/hash.js";
-import { generateRefreshToken, generateAccessToken } from "../../utils/tokens.js";
 import { createSession } from "../../repositories/session.repository.js";
 import { cookieOptions } from "../../utils/cookie.js";
+import generateTokens from "../../services/token.service.js";
 
 const signupController = async (req, res) => {
   try {
@@ -15,10 +15,9 @@ const signupController = async (req, res) => {
       password: hashedPassword,
     });
 
-    const refreshToken = generateRefreshToken(createdUser); // Implement this function to generate a refresh token
-    const accessToken = generateAccessToken(createdUser); // Implement this function to generate an access token
+    const { refreshToken, accessToken } = generateTokens(createdUser);
 
-    const session = await createSession({
+    await createSession({
       user_id: createdUser.id,
       refresh_token: refreshToken,
       user_agent: req.headers["user-agent"] || "unknown",
@@ -26,7 +25,6 @@ const signupController = async (req, res) => {
 
     res.status(201).cookie("refresh_token", refreshToken, cookieOptions).json({
       message: "User created successfully",
-      rawPassword: password,
       user: createdUser,
       accessToken,
       refreshToken,

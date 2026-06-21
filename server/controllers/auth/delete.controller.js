@@ -1,11 +1,10 @@
-import db from "../../db/index.js";
 import { deleteUser } from "../../repositories/user.repository.js";
 
 export async function deleteUserController(req, res) {
-  const { id } = req.query;
+  const userId = req.user.id;
 
   try {
-    const deletedUser = await deleteUser(id);
+    const deletedUser = await deleteUser(userId);
     if (!deletedUser) {
       return res.status(404).json({ message: "User not found" });
     }

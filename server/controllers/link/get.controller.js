@@ -2,7 +2,7 @@ import { getAllLinksByUserId } from "../../repositories/links.repository.js";
 
 export default async function getLinkController(req, res) {
   try {
-    const userId = req.query.userId;
+    const userId = req.user.id;
 
     const links = await getAllLinksByUserId(userId);
 

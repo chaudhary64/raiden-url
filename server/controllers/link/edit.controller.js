@@ -1,13 +1,27 @@
-import { updateLink } from "../../repositories/links.repository.js";
+import { updateLink, getLinkById } from "../../repositories/links.repository.js";
 
 export default async function editLinkController(req, res) {
   try {
     const { linkId, originalUrl } = req.body;
+    const userId = req.user.id;
+
+    if (!linkId) {
+      return res.status(400).json({ message: "linkId is required" });
+    }
 
     if (!originalUrl) {
       return res.status(400).json({
         message: "Original URL is required",
       });
+    }
+
+    // Verify the link belongs to the requesting user
+    const link = await getLinkById(linkId);
+    if (!link) {
+      return res.status(404).json({ message: "Link not found" });
+    }
+    if (link.user_id !== userId) {
+      return res.status(403).json({ message: "Forbidden: You do not own this link" });
     }
 
     const updatedLink = await updateLink(linkId, {
