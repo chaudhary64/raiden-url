@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Button from '../components/Button';
+import { useState } from 'react';
+import Button from '../components/ui/Button';
 
 const Signup = ({ onNavigate }) => {
   const [name, setName] = useState("");
