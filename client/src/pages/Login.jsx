@@ -1,11 +1,16 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import Button from "../components/ui/Button";
 import { LoginUser } from "../api/auth";
 
 const Login = ({ onNavigate }) => {
+  const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: LoginUser,
+    onSuccess: () => {
+      console.log("Successfully logged in!");
+      navigate("/");
+    },
   });
 
   const handleSubmit = (formData) => {

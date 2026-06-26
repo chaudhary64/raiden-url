@@ -1,13 +1,15 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { SignUpUser } from "../api/auth";
 import Button from "../components/ui/Button";
 import { useMutation } from "@tanstack/react-query";
 
 const Signup = ({ onNavigate }) => {
+  const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: SignUpUser,
     onSuccess: () => {
-      console.log("Success!");
+      console.log("Successfully signed up!");
+      navigate("/");
     },
     onError: (e) => console.error(e),
   });
