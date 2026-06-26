@@ -1,8 +1,14 @@
 import { Link } from "react-router";
 import Button from "../ui/Button";
 import Avatar from "../ui/Avatar";
+import {
+  useAuthActions,
+  useAuthToken,
+} from "../../features/auth/useAuthActions";
 
-const Nav = ({ isAuthenticated, user }) => {
+const Nav = ({ user }) => {
+  const isAuthenticated = useAuthToken();
+  const { logout } = useAuthActions();
   return (
     <header
       className={`px-6 py-4 flex justify-between items-center border-b sticky top-0 z-10 ${
@@ -35,7 +41,13 @@ const Nav = ({ isAuthenticated, user }) => {
               <Avatar initials={user.initials} />
             </div>
           )}
-          <Button as={Link} variant="secondary" size="small" to="/logout">
+          <Button
+            as={Link}
+            variant="secondary"
+            size="small"
+            to="/"
+            onClick={logout}
+          >
             Logout
           </Button>
         </nav>

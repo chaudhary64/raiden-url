@@ -2,8 +2,11 @@ import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
 import Nav from "../components/layout/Nav";
 import Footer from "../components/layout/Footer";
+import { useAuthToken } from "../features/auth/useAuthActions";
 
 const Home = () => {
+  const token = useAuthToken();
+  console.log("Token: ", token)
   return (
     <div className="min-h-screen bg-[#fafafa] text-gray-900 flex flex-col font-sans">
       <Nav isAuthenticated={false} />

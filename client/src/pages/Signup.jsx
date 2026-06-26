@@ -2,13 +2,16 @@ import { Link, useNavigate } from "react-router";
 import { SignUpUser } from "../api/auth";
 import Button from "../components/ui/Button";
 import { useMutation } from "@tanstack/react-query";
+import { useAuthActions } from "../features/auth/useAuthActions";
 
 const Signup = ({ onNavigate }) => {
   const navigate = useNavigate();
+  const { setAccessToken } = useAuthActions();
   const mutation = useMutation({
     mutationFn: SignUpUser,
-    onSuccess: () => {
+    onSuccess: ({ data }) => {
       console.log("Successfully signed up!");
+      setAccessToken(data.accessToken);
       navigate("/");
     },
     onError: (e) => console.error(e),
