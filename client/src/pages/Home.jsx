@@ -3,13 +3,24 @@ import Card from "../components/ui/Card";
 import Nav from "../components/layout/Nav";
 import Footer from "../components/layout/Footer";
 import { useAuthToken } from "../features/auth/useAuthActions";
+import { useMutation } from "@tanstack/react-query";
+import { createLink } from "../api/links";
 
 const Home = () => {
   const token = useAuthToken();
-  console.log("Token: ", token)
+  const isAuthenticated = token ? true : false;
+  const mutation = useMutation({
+    mutationFn: createLink
+  });
+  const handleSubmit = (formData) => {
+    const data = Object.fromEntries(formData);
+    console.log(data)
+    mutation.mutate(data);
+  };
+
   return (
     <div className="min-h-screen bg-[#fafafa] text-gray-900 flex flex-col font-sans">
-      <Nav isAuthenticated={false} />
+      <Nav />
 
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-20 w-full max-w-5xl mx-auto">
         <div className="text-center mb-12 max-w-2xl">
@@ -22,18 +33,34 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="w-full max-w-xl mb-16 flex flex-col sm:flex-row gap-3 px-4 sm:px-0">
+        <form
+          action={handleSubmit}
+          className="w-full max-w-xl mb-16 flex flex-col sm:flex-row gap-3 px-4 sm:px-0"
+        >
           <input
-            className="flex-1 bg-white border border-gray-300 shadow-sm text-gray-900 placeholder-gray-400 text-base px-5 py-4 focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900 rounded-none transition-all"
-            placeholder="Paste your long URL here..."
+            className={`flex-1 bg-white border border-gray-300 shadow-sm text-gray-900 placeholder-gray-400 text-base px-5 py-4 focus:outline-none focus:ring-2 focus:ring-gray-900/20 focus:border-gray-900 rounded-none transition-all ${!isAuthenticated && "cursor-not-allowed opacity-60"}`}
+            placeholder={
+              isAuthenticated
+                ? "Enter your long URL here..."
+                : "Please log in to shorten URLs"
+            }
+            disabled={!isAuthenticated}
+            name="url"
           />
           <Button
             size="large"
             className="rounded-none! w-full sm:w-auto shadow-sm"
+            disabled={!isAuthenticated}
+            type="submit"
+            tooltip={
+              !isAuthenticated
+                ? "Please log in to shorten URLs"
+                : "Shorten your URL"
+            }
           >
             Shorten
           </Button>
-        </div>
+        </form>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
           <Card className="flex flex-col items-start gap-3 hover:shadow-md transition-shadow">

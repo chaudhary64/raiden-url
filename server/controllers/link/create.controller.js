@@ -2,6 +2,7 @@ import { createLink } from "../../repositories/links.repository.js";
 import { nanoid } from "nanoid";
 
 export default async function postLinkController(req, res) {
+  console.log("Link creation request received");
   try {
     const userId = req.user.id;
     const { originalUrl } = req.body;
