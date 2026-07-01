@@ -5,16 +5,6 @@ export default async function editLinkController(req, res) {
     const { linkId, originalUrl } = req.body;
     const userId = req.user.id;
 
-    if (!linkId) {
-      return res.status(400).json({ message: "linkId is required" });
-    }
-
-    if (!originalUrl) {
-      return res.status(400).json({
-        message: "Original URL is required",
-      });
-    }
-
     // Verify the link belongs to the requesting user
     const link = await getLinkById(linkId);
     if (!link) {

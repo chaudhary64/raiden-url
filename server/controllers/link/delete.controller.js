@@ -4,12 +4,6 @@ export default async function removeLinkController(req, res) {
   try {
     const { linkId } = req.query;
     const userId = req.user.id;
-
-    if (!linkId) {
-      return res.status(400).json({ message: "linkId is required" });
-    }
-
-    // Verify the link belongs to the requesting user
     const link = await getLinkById(linkId);
     if (!link) {
       return res.status(404).json({ message: "Link not found" });
