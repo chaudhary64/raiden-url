@@ -4,7 +4,7 @@ import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import NotFound from "../pages/NotFound";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/shared/Layout";
 
 const router = createBrowserRouter([
   {
