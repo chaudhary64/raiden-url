@@ -1,7 +1,5 @@
 import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
-import Nav from "../components/layout/Nav";
-import Footer from "../components/layout/Footer";
 import { useAuthToken } from "../features/auth/useAuthActions";
 import { useMutation } from "@tanstack/react-query";
 import { createLink } from "../api/links";
@@ -20,7 +18,6 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-[#fafafa] text-gray-900 flex flex-col font-sans">
-      <Nav />
 
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-20 w-full max-w-5xl mx-auto">
         <div className="text-center mb-12 max-w-2xl">
@@ -132,7 +129,6 @@ const Home = () => {
         </div>
       </main>
 
-      <Footer />
     </div>
   );
 };

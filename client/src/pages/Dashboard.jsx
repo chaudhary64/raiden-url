@@ -4,7 +4,6 @@ import Card from "../components/ui/Card";
 import Chip from "../components/ui/Chip";
 import Avatar from "../components/ui/Avatar";
 import StatCard from "../components/ui/StatCard";
-import Nav from "../components/layout/Nav";
 import {
   Table,
   TableHeader,
@@ -151,7 +150,6 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-[#fafafa] text-gray-900 flex flex-col font-sans pb-20">
       {/* Header Navigation */}
-      <Nav isAuthenticated={true} user={user} />
 
       <main className="flex-1 w-full max-w-7xl mx-auto px-6 mt-10 flex flex-col gap-10">
         {/* User Overview Section */}
