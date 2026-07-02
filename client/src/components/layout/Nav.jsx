@@ -5,10 +5,21 @@ import {
   useAuthActions,
   useAuthToken,
 } from "../../features/auth/useAuthActions";
+import { LogoutUser } from "../../api/auth";
+import { useMutation } from "@tanstack/react-query";
 
 const Nav = ({ user }) => {
   const isAuthenticated = useAuthToken();
   const { logout } = useAuthActions();
+
+  const mutation = useMutation({
+    mutationFn: LogoutUser,
+    invalidateQueries: ["REFRESH_TOKEN"],
+    onSuccess: () => {
+      logout();
+    },
+  });
+
   return (
     <header
       className={`px-6 py-4 flex justify-between items-center border-b sticky top-0 z-10 ${
@@ -46,7 +57,7 @@ const Nav = ({ user }) => {
             variant="secondary"
             size="small"
             to="/"
-            onClick={logout}
+            onClick={mutation.mutate}
           >
             Logout
           </Button>
