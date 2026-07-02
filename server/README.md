@@ -61,6 +61,7 @@ Use `GET /refresh` to silently rotate tokens before the access token expires.
 |--------|----------|------|----------|
 | `POST` | `/auth/signup` | `{ name, email, password }` | `201` — `{ user, accessToken, refreshToken }` + sets `refresh_token` cookie |
 | `POST` | `/auth/login` | `{ email, password }` | `200` — `{ user, accessToken, refreshToken }` + sets `refresh_token` cookie |
+| `DELETE` | `/auth/logout` | — | `200` — clears `refresh_token` cookie and invalidates the session |
 
 ---
 
