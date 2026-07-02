@@ -1,14 +1,5 @@
 import { verifyAccessToken } from "../utils/tokens.js";
 
-/**
- * Authenticate middleware — protects routes by verifying the JWT access token.
- *
- * Expects the client to send:
- *   Authorization: Bearer <accessToken>
- *
- * On success, attaches the decoded payload to `req.user` and calls `next()`.
- * On failure, responds with 401 Unauthorized.
- */
 const authenticateMiddleware = (req, res, next) => {
   const authHeader = req.headers["authorization"];
 
@@ -33,4 +24,4 @@ const authenticateMiddleware = (req, res, next) => {
   next();
 };
 
-export default authenticateMiddleware;
+export default authenticateMiddleware;
